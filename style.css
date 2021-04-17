@@ -5,7 +5,90 @@
 
 
 .grid {
+  height: 100px;
+  width: 100px;
+  border: 3px solid black;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  height: 100vh;
+  color: white;
+}
+
+.game-space {
+  background-color: pink;
+  padding: 2px;
+}
+
+.top-section {
+flex-direction: row;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.middle-section {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-section {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.end-section {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bin-bag {
+  background-image: url('images/garbage-bag.png');
+  background-size: cover;
+  height: 60px;
+  width: 60px;
+  
+}
+
+.lid-off {
+  background-color: blue;
+  height: 50px;
+  width: 70px;
+}
+
+.label-off {
+  background-color: blueviolet;
+  height: 50px;
+  width: 70px;
+}
+
+
+.products {
+  border: 2px solid green;
   height: 500px;
-  width: 300px;
-  border: 3px solid pink;
+  width: 220px;
+
+}
+
+.wash-it {
+  background-image: url('images/water-tap.png');
+  background-size: cover;
+  height: 60px;
+  width: 60px;
+}
+
+.recycle-it {
+  background-image: url('images/recycle.png');
+  background-size: cover;
+  height: 60px;
+  width: 60px;
 }
