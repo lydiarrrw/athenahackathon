@@ -19,8 +19,8 @@ body {
 .grid {
   display: flex;
   flex-direction: row;
-  width: 300px;
-  height: 300px;
+  width: 600px;
+  height: 600px;
   flex-wrap: wrap;
   background-color: white;
 }
