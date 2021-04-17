@@ -30,10 +30,31 @@ function dragEnter(e) {
 }
 
 function dragLeave() {
-  this.class = 'empty' 
+  this.class = 'empty'
 }
-
 function dragDrop() {
   this.class = 'empty'
   this.append(fill)
+}
+
+function getRandomPosition(element) {
+  const grid = document.querySelector('.grid')
+  const x = grid.offsetHeight - element.clientHeight
+  const y = grid.offsetWidth - element.clientWidth
+  const randomX = Math.floor(Math.random() * x)
+  const randomY = Math.floor(Math.random() * y)
+  
+  return [randomX,randomY]
+}
+
+window.onload = function() {
+  const grid = document.querySelector('.grid')
+  const img = document.createElement('img')
+  img.setAttribute('style', 'position: relative;')
+  img.setAttribute('src', './images/recycle.png')
+  grid.appendChild(img)
+  const xy = getRandomPosition(img)
+  console.log(xy)
+  img.style.top = xy[0] + 'px'
+  img.style.left = xy[1] + 'px'
 }
