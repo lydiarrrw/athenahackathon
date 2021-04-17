@@ -20,7 +20,7 @@ let lives = 3
 const livesLeft = document.querySelector('.life')
 //console.log(livesLeft)
 const energizer = [21, 38, 361, 358]
-let pacman = 47
+let trashman = 47
 let score = 0
 
 let pinkGhost = 268
@@ -59,3 +59,1114 @@ for (let index = 0; index < width ** 2; index++) {
 
 }
 
+// console.log(cells.length)
+// console.log(walls.length)
+// console.log(foodCount)
+// console.log(energizerCount)
+
+function gameover() {
+  if (lives === 0) {
+    winner.innerHTML = `The ghosts beat you! Your score is ${score}`
+    //console.log('loser')
+    cells[trashman].classList.remove('binman')
+    livesLeft.innerHTML = lives
+    grid.classList.remove('grid')
+    grid.classList.add('hidegrid')
+    result.classList.add('roshman')
+  } else if (foodCount === 0
+    && energizerCount === 0) {
+    cells[trashman].classList.remove('binman')
+    winner.innerHTML = `You win! Your score is ${score}`
+    grid.classList.remove('grid')
+    grid.classList.add('hidegrid')
+    result.classList.add('roshmanwins')
+    //console.log('winner') 
+  }
+}
+
+//===============KEYBOARD CONTROLS=======================
+
+document.addEventListener('keydown', function start(event) {
+  const key = event.key
+
+  gameover(greenGhost, 'greenGhost')
+  gameover(pinkGhost, 'pinkGhost')
+  gameover(blueGhost, 'blueGhost')
+  gameover(orangeGhost, 'orangeGhost')
+
+  if (key === 's'
+    && lives >= 1) {
+
+    cells[trashman].classList.remove('binman')
+    trashman += 1
+    cells[trashman].classList.add('binman')
+    startGhost(pinkGhost, 'pinkGhost', 268, 'moveAlongPink')
+    startGhost(blueGhost, 'blueGhost', 248, 'moveAlongBlue')
+    startGhost(greenGhost, 'greenGhost', 269, 'moveAlongGreen')
+    startGhost(orangeGhost, 'orangeGhost', 270, 'moveAlongOrange')
+
+  }
+  if (lives === 0) {
+    document.removeEventListener('keydown', start)
+  }
+
+
+  if (key === 'ArrowRight'
+    && cells[trashman + 1].classList.contains('notwalls')
+    && cells[trashman].classList.contains('energy')) {
+    cells[trashman].classList.remove('energy')
+    cells[trashman].classList.remove('binman')
+    trashman += 1 //right
+    score += 200
+    energizerCount--
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowRight'
+    && cells[trashman + 1].classList.contains('notwalls')
+    && (cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    cells[trashman].classList.remove('food1')
+    trashman += 1 //right
+    score += 10
+    foodCount--
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowRight'
+    && cells[trashman + 1].classList.contains('notwalls')
+    && !(cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    trashman += 1 //right
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowLeft'
+    && cells[trashman - 1].classList.contains('notwalls')
+    && cells[trashman].classList.contains('energy')) {
+    cells[trashman].classList.remove('energy')
+    cells[trashman].classList.remove('binman')
+    trashman -= 1 //left
+    score += 200
+    energizerCount--
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowLeft'
+    && cells[trashman - 1].classList.contains('notwalls')
+    && cells[trashman].classList.contains('food1')) {
+    cells[trashman].classList.remove('binman')
+    cells[trashman].classList.remove('food1')
+    trashman -= 1 //left
+    score += 10
+    foodCount--
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowLeft'
+    && cells[trashman - 1].classList.contains('notwalls')
+    && !(cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    trashman -= 1 //left
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowDown'
+    && cells[trashman + width].classList.contains('notwalls')
+    && cells[trashman].classList.contains('energy')) {
+    cells[trashman].classList.remove('energy')
+    cells[trashman].classList.remove('binman')
+    trashman += width //down
+    score += 200
+    energizerCount--
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowDown'
+    && cells[trashman + width].classList.contains('notwalls')
+    && !(cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    trashman += width // down
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowDown'
+    && cells[trashman + width].classList.contains('notwalls')
+    && cells[trashman].classList.contains('food1')) {
+    cells[trashman].classList.remove('binman')
+    cells[trashman].classList.remove('food1')
+    trashman += width // down
+    score += 10
+    foodCount--
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowUp'
+    && cells[trashman - width].classList.contains('notwalls')
+    && cells[trashman].classList.contains('energy')) {
+    cells[trashman].classList.remove('energy')
+    cells[trashman].classList.remove('binman')
+    trashman -= width //up
+    score += 200
+    energizerCount--
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowUp'
+    && cells[trashman - width].classList.contains('notwalls')
+    && !(cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    trashman -= width //up
+    cells[trashman].classList.add('binman')
+  } else if (key === 'ArrowUp'
+    && cells[trashman - width].classList.contains('notwalls')
+    && cells[trashman].classList.contains('food1')) {
+    cells[trashman].classList.remove('binman')
+    cells[trashman].classList.remove('food1')
+    trashman -= width //up
+    score += 10
+    foodCount--
+    cells[trashman].classList.add('binman')
+  }
+  //console.log(score)
+
+
+  if (cells[trashman].classList.contains('energy')) {
+    greyMode = true
+    greyGhostMode(pinkGhost)
+    greyGhostMode(orangeGhost)
+    greyGhostMode(blueGhost)
+    greyGhostMode(greenGhost)
+
+  }
+
+  function greyGhostMode(ghost) {
+    setTimeout(() => {
+      greyMode = false
+    }, 5000)
+
+  }
+
+
+  scoreKeeper.innerHTML = score
+
+  livesLeft.innerHTML = lives
+
+
+})
+
+
+//===============MOBILE CONTROLS=======================
+
+document.addEventListener('click', function start(event) {
+  const button = event.target.innerHTML
+  //console.log(button)
+
+  gameover(greenGhost, 'greenGhost')
+  gameover(pinkGhost, 'pinkGhost')
+  gameover(blueGhost, 'blueGhost')
+  gameover(orangeGhost, 'orangeGhost')
+
+  if (button === 'START' && lives >= 1) {
+
+    cells[trashman].classList.remove('binman')
+    trashman += 1
+    cells[trashman].classList.add('binman')
+    startGhost(pinkGhost, 'pinkGhost', 268, 'moveAlongPink')
+    startGhost(blueGhost, 'blueGhost', 248, 'moveAlongBlue')
+    startGhost(greenGhost, 'greenGhost', 269, 'moveAlongGreen')
+    startGhost(orangeGhost, 'orangeGhost', 270, 'moveAlongOrange')
+
+  }
+  if (lives === 0) {
+    document.removeEventListener('keydown', start)
+  }
+
+
+  if (button === 'RIGHT'
+    && cells[trashman + 1].classList.contains('notwalls')
+    && cells[trashman].classList.contains('energy')) {
+    cells[trashman].classList.remove('energy')
+    cells[trashman].classList.remove('binman')
+    trashman += 1 //right
+    score += 200
+    energizerCount--
+    cells[trashman].classList.add('binman')
+  } else if (button === 'RIGHT'
+    && cells[trashman + 1].classList.contains('notwalls')
+    && (cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    cells[trashman].classList.remove('food1')
+    trashman += 1 //right
+    score += 10
+    foodCount--
+    cells[trashman].classList.add('binman')
+  } else if (button === 'RIGHT'
+    && cells[trashman + 1].classList.contains('notwalls')
+    && !(cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    trashman += 1 //right
+    cells[trashman].classList.add('binman')
+  } else if (button === 'LEFT'
+    && cells[trashman - 1].classList.contains('notwalls')
+    && cells[trashman].classList.contains('energy')) {
+    cells[trashman].classList.remove('energy')
+    cells[trashman].classList.remove('binman')
+    trashman -= 1 //left
+    score += 200
+    energizerCount--
+    cells[trashman].classList.add('binman')
+  } else if (button === 'LEFT'
+    && cells[trashman - 1].classList.contains('notwalls')
+    && cells[trashman].classList.contains('food1')) {
+    cells[trashman].classList.remove('binman')
+    cells[trashman].classList.remove('food1')
+    trashman -= 1 //left
+    score += 10
+    foodCount--
+    cells[trashman].classList.add('binman')
+  } else if (button === 'LEFT'
+    && cells[trashman - 1].classList.contains('notwalls')
+    && !(cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    trashman -= 1 //left
+    cells[trashman].classList.add('binman')
+  } else if (button === 'DOWN'
+    && cells[trashman + width].classList.contains('notwalls')
+    && cells[trashman].classList.contains('energy')) {
+    cells[trashman].classList.remove('energy')
+    cells[trashman].classList.remove('binman')
+    trashman += width //down
+    score += 200
+    energizerCount--
+    cells[trashman].classList.add('binman')
+  } else if (button === 'DOWN'
+    && cells[trashman + width].classList.contains('notwalls')
+    && !(cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    trashman += width // down
+    cells[trashman].classList.add('binman')
+  } else if (button === 'DOWN'
+    && cells[trashman + width].classList.contains('notwalls')
+    && cells[trashman].classList.contains('food1')) {
+    cells[trashman].classList.remove('binman')
+    cells[trashman].classList.remove('food1')
+    trashman += width // down
+    score += 10
+    foodCount--
+    cells[trashman].classList.add('binman')
+  } else if (button === 'UP'
+    && cells[trashman - width].classList.contains('notwalls')
+    && cells[trashman].classList.contains('energy')) {
+    cells[trashman].classList.remove('energy')
+    cells[trashman].classList.remove('binman')
+    trashman -= width //up
+    score += 200
+    energizerCount--
+    cells[trashman].classList.add('binman')
+  } else if (button === 'UP'
+    && cells[trashman - width].classList.contains('notwalls')
+    && !(cells[trashman].classList.contains('food1'))) {
+    cells[trashman].classList.remove('binman')
+    trashman -= width //up
+    cells[trashman].classList.add('binman')
+  } else if (button === 'UP'
+    && cells[trashman - width].classList.contains('notwalls')
+    && cells[trashman].classList.contains('food1')) {
+    cells[trashman].classList.remove('binman')
+    cells[trashman].classList.remove('food1')
+    trashman -= width //up
+    score += 10
+    foodCount--
+    cells[trashman].classList.add('binman')
+
+  }
+
+  if (cells[trashman].classList.contains('energy')) {
+    greyMode = true
+    greyGhostMode(pinkGhost)
+    greyGhostMode(orangeGhost)
+    greyGhostMode(blueGhost)
+    greyGhostMode(greenGhost)
+  }
+
+  function greyGhostMode(ghost) {
+    setTimeout(() => {
+      greyMode = false
+    }, 5000)
+
+  }
+  scoreKeeper.innerHTML = score
+  livesLeft.innerHTML = lives
+})
+
+
+//===============GHOST MOVEMENT=======================
+
+function startGhost(ghost, string, number, moveAlong) {
+  // ADD GHOULS
+  cells.forEach((cell) => {
+    cell.classList.remove(string)
+  })
+  cells[ghost].classList.remove(string)
+  cells[ghost].classList.add(string)
+
+
+
+  // GHOUL MOVEMENT
+
+  const ghostsMoves = setInterval(() => {
+
+
+    const randNum = Math.floor((Math.random() * 2) + 1)
+    //console.log(randNum + 'original number')
+
+    const newRandNum = Math.floor((Math.random() * 3) + 1)
+    //console.log(newRandNum + 'new number')
+
+
+    if (cells[ghost].classList.contains('greyGhost')
+      && cells[ghost].classList.contains('binman')) {
+      //console.log('grey ghost mode')
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove('greyGhost')
+      cells[ghost].classList.remove(string)
+      ghost = number
+      cells[ghost].classList.add(string)
+    }
+
+    cells[ghost].classList.remove('greyGhost')
+
+
+    if (cells[ghost].classList.contains('binman')
+      && lives === 0) {
+      clearInterval(ghostsMoves)
+      console.log('gameover2')
+      gameover(greenGhost, 'greenGhost')
+      gameover(pinkGhost, 'pinkGhost')
+      gameover(blueGhost, 'blueGhost')
+      gameover(orangeGhost, 'orangeGhost')
+      cells[ghost].classList.remove(string)
+      ghost = number
+      cells[ghost].classList.add(string)
+
+    }
+
+    else if (cells[ghost].classList.contains('binman')
+      && lives >= 1) {
+      //console.log('next life')
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      setTimeout(() => {
+        lives--
+        console.log(lives)
+        gameover(greenGhost, 'greenGhost')
+        gameover(pinkGhost, 'pinkGhost')
+        gameover(blueGhost, 'blueGhost')
+        gameover(orangeGhost, 'orangeGhost')
+        cells[ghost].classList.remove(string)
+        ghost = number
+        cells[ghost].classList.add(string)
+        cells[trashman].classList.remove('binman')
+        trashman = 47
+        cells[trashman].classList.add('binman')
+        startGhost(ghost, string, number)
+      }, 600)
+
+      clearInterval(ghostsMoves)
+
+    }
+
+    else if (lives === 0) {
+      document.addEventListener('keydown', (event))
+    }
+
+
+
+
+    //--------MOVE IN A LINE --------
+    //-----------------------------
+    // move upwards in a line
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && (cells[ghost + width].classList.contains(moveAlong) || cells[ghost + width].classList.contains('walls'))
+      && !(cells[ghost - width].classList.contains('walls'))
+    ) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+
+      // move downwards in a line
+    } else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains(moveAlong) || cells[ghost - width].classList.contains('walls'))
+      && !(cells[ghost + width].classList.contains('walls'))
+    ) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+
+      // move left in a line
+    } else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && (cells[ghost + 1].classList.contains(moveAlong) || cells[ghost + 1].classList.contains('walls'))
+      && !(cells[ghost - 1].classList.contains('walls'))
+    ) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+
+
+      // move right in a line
+    } else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && (cells[ghost - 1].classList.contains(moveAlong) || cells[ghost - 1].classList.contains('walls'))
+      && !(cells[ghost + 1].classList.contains('walls'))
+    ) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+
+
+
+
+      //-----TWO DIRECTIONS POSSIBLE----
+      //--------------------------------
+
+      //right blocked and top blocked rand 1 = go down
+    } else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && randNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+    }
+
+    //right blocked and top blocked rand 2 = go left
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && randNum === 2) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+    }
+
+    // If right is blocked and bottom is blocked + rand 1 = up
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && randNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+    }
+
+    // If right is blocked and bottom is blocked + rand 2 = left
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && randNum === 2) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+    }
+
+    // If left blocked and bottom is blocked + rand 1 = go up
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && (cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && randNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+    }
+    // If left blocked and bottom is blocked + rand 2 = go right
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && (cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && randNum === 2) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+    }
+
+
+    // If left blocker and top blocked + rand 1 = go down
+
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && randNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+    }
+
+    // If left blocked and top blaocked + rand 2 = go right
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && randNum === 2) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+    }
+
+
+    //---- THREE DIRECTIONS POSSIBLE----
+    //------------------------------------------
+
+    // Top, bottom and left are empty - new rand 1(left)
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && newRandNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+    }
+
+    // Top, bottom and left are empty - new rand 2 (bottom)
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && newRandNum === 2) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+    }
+
+    // Top, bottom and left are empty - new rand 3 (top)
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && newRandNum === 3) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+    }
+
+    // Top, bottom and right are empty - new rand 1(right)
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && newRandNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+    }
+
+    // Top, bottom and right are empty -  new rand 2 (bottom)
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && newRandNum === 2) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+    }
+
+    // Top, bottom and right are empty - new rand 3 (up)
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && newRandNum === 3) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+    }
+
+    // Bottom, right and left are empty - new rand 1(left)
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && newRandNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+    }
+
+
+    // Bottom, right and left are empty -  new rand 2 (down)
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && newRandNum === 2) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+    }
+    // Bottom, right and left are empty -  new rand 3 (right)
+
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && newRandNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+    }
+
+    // Top, left and right are empty - new rand 1(left)
+
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && newRandNum === 1) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+    }
+    // Top, left and right are empty - new rand 2 (up)
+
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && newRandNum === 2) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+    }
+
+    // Top, left and right are empty - new rand 3 (right)
+
+    else if (cells[ghost].classList.contains(string)
+      && !(cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && !(cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && !(cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && newRandNum === 3) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+    }
+
+
+    //---- STOP  GETTING STUCK IN CORNERS ----
+    //----------------------------------------------
+    // If right, top and left are blocked = go down
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && cells[ghost + width].classList.contains(moveAlong)
+    ) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+    }
+
+
+    // If right, bottom and left are blocked = go up
+
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && cells[ghost - width].classList.contains(moveAlong)
+    ) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+    }
+
+    // If bottom, top and right are blocked = go left
+
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost + 1].classList.contains('walls') || cells[ghost + 1].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && (cells[ghost + width].classList.contains('walls') || cells[ghost + width].classList.contains(moveAlong))
+      && cells[ghost - 1].classList.contains(moveAlong)
+    ) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+    }
+    // If bottom, top and left are blocked = go right
+
+    else if (cells[ghost].classList.contains(string)
+      && (cells[ghost - 1].classList.contains('walls') || cells[ghost - 1].classList.contains(moveAlong))
+      && (cells[ghost - width].classList.contains('walls') || cells[ghost - width].classList.contains(moveAlong))
+      && (cells[ghost + width].classList.contains('walls' || cells[ghost + width].classList.contains(moveAlong)))
+      && cells[ghost + 1].classList.contains(moveAlong)
+    ) {
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+    }
+
+    // ---- random direction when reach up/down
+
+    // if left is move along, right is wall move upwards in a line rand 1
+    else if (cells[ghost].classList.contains(string)
+      && cells[ghost - 1].classList.contains(moveAlong)
+      && cells[ghost + 1].classList.contains('walls')
+      && cells[ghost + width].classList.contains('notwalls')
+      && cells[ghost - width].classList.contains('notwalls')
+      && randNum === 1) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+    }
+    // if left move along, right is wall move downward in a line rand 2
+    else if (cells[ghost].classList.contains(string)
+      && cells[ghost - 1].classList.contains(moveAlong)
+      && cells[ghost + 1].classList.contains('walls')
+      && cells[ghost + width].classList.contains('notwalls')
+      && cells[ghost - width].classList.contains('notwalls')
+      && randNum === 2) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+    }
+    // if right is move along, left wall move upwards in a line rand 1
+    else if (cells[ghost].classList.contains(string)
+      && cells[ghost + 1].classList.contains(moveAlong)
+      && cells[ghost - 1].classList.contains('walls')
+      && cells[ghost + width].classList.contains('notwalls')
+      && cells[ghost - width].classList.contains('notwalls')
+      && randNum === 1) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= width
+      cells[ghost].classList.add(string)
+    }
+    // if right move along, move downward in a line rand 2
+    else if (cells[ghost].classList.contains(string)
+      && cells[ghost + 1].classList.contains(moveAlong)
+      && cells[ghost - 1].classList.contains('walls')
+      && cells[ghost + width].classList.contains('notwalls')
+      && cells[ghost - width].classList.contains('notwalls')
+      && randNum === 2) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += width
+      cells[ghost].classList.add(string)
+    }
+    // if top is move along, bottom wall move left in a line rand 1
+    else if (cells[ghost].classList.contains(string)
+      && cells[ghost - width].classList.contains(moveAlong)
+      && cells[ghost + width].classList.contains('walls')
+      && cells[ghost + 1].classList.contains('notwalls')
+      && cells[ghost - 1].classList.contains('notwalls')
+      && randNum === 1) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+    }
+
+    // if top move along, bottom wall, move right in a line rand 2
+    else if (cells[ghost].classList.contains(string)
+      && cells[ghost - width].classList.contains(moveAlong)
+      && cells[ghost + width].classList.contains('walls')
+      && cells[ghost + 1].classList.contains('notwalls')
+      && cells[ghost - 1].classList.contains('notwalls')
+      && randNum === 2) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+    }
+
+    // if bottom is move along, top wall move left in a line rand 1
+    else if (cells[ghost].classList.contains(string)
+      && cells[ghost + width].classList.contains(moveAlong)
+      && cells[ghost - width].classList.contains('walls')
+      && cells[ghost + 1].classList.contains('notwalls')
+      && cells[ghost - 1].classList.contains('notwalls')
+      && randNum === 1) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost -= 1
+      cells[ghost].classList.add(string)
+    }
+    // if bottom move along, top wall, move right in a line rand 2
+    else if (cells[ghost].classList.contains(string)
+      && cells[ghost + width].classList.contains(moveAlong)
+      && cells[ghost - width].classList.contains('walls')
+      && cells[ghost + 1].classList.contains('notwalls')
+      && cells[ghost - 1].classList.contains('notwalls')
+      && randNum === 1) {
+
+      //--
+      cells[ghost - 1].classList.remove(moveAlong)
+      cells[ghost + 1].classList.remove(moveAlong)
+      cells[ghost - width].classList.remove(moveAlong)
+      cells[ghost + width].classList.remove(moveAlong)
+      //---
+      cells[ghost].classList.remove(string)
+      cells[ghost].classList.add(moveAlong)
+      ghost += 1
+      cells[ghost].classList.add(string)
+    }
+
+
+
+
+    if (greyMode === true) {
+      cells[ghost].classList.add('greyGhost')
+    }
+  }, 350)
+
+  //===============================
+  //===============================
+
+
+}
