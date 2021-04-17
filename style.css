@@ -3,10 +3,15 @@
 }
 
 
-
+img {
+  width: 30px;
+  height: 30px;
+}
 .grid {
-  height: 100px;
-  width: 100px;
+  margin: 0 auto;
+  margin-top: 10%;
+  height: 170px;
+  width: 170px;
   border: 3px solid black;
 }
 main {
@@ -74,7 +79,7 @@ justify-content: center;
 
 .products {
   border: 2px solid green;
-  height: 500px;
+  height: 220px;
   width: 220px;
 
 }

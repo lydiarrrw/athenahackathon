@@ -12,7 +12,7 @@ window.onload = function() {
   const grid = document.querySelector('.grid')
 	var img = document.createElement('img');
 	img.setAttribute("style", "position: relative;");
-	img.setAttribute("src", "some-image.jpg");
+	img.setAttribute("src", "./images/recycle.png");
   grid.appendChild(img);
 	var xy = getRandomPosition(img);
   console.log(xy)
