@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   height: 100vh;
   display: flex;
@@ -22,13 +23,56 @@ body {
 .grid {
   display: flex;
   flex-direction: row;
-  width: 300px;
-  height: 300px;
+  width: 600px;
+  height: 600px;
   flex-wrap: wrap;
   background-color: white;
 }
 
 .walls {
   background-color: black;
+  border: 1px solid black; 
+}
+
+.food1 {
+  background: url('images/food.png');
+  background-size: cover;
+  }
+
+
+.binman {
+  background-color:  yellow;
+  font-size: 10px;
+  border: 2px solid white;
+  background: url('images/image.png');
+  background-size: cover;
+}
+
+.greenGhost {
+  background-color: green;
+  border: 1px solid white;
+  background: url('images/garbage-bag.png');
+  background-size: cover;
+}
+
+.orangeGhost {
+  background-color: orange;
+  border: 1px solid white;
+  background: url('images/garbage-bag.png');
+  background-size: cover;
+}
+
+.blueGhost {
+  background-color: blue;
+  border: 1px solid white;
+  background: url('images/garbage-bag.png');
+  background-size: cover;
+}
+
+.pinkGhost {
+  background-color: pink;
+  border: 1px solid white;
+  background: url('images/garbage-bag.png');
+  background-size: cover;
   /* border: 1px solid black;  */
 }
