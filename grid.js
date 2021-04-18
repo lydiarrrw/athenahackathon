@@ -73,35 +73,13 @@ const allProducts = [
   }
 ]
 
-/* const productImg = allProducts.map(item => {
-  return item.img
-}) */
-
-const productBin = allProducts.map(item => {
-  return item.bin
-})
-
-const productWashing = allProducts.map(item => {
-  return item.washing
-})
-
-const productLabel = allProducts.map(item => {
-  return item.label
-})
-
-const productLid = allProducts.map(item => {
-  return item.lid
-})
-
-//---------------------
-
 
 function randomProducts() {
   const productsNew = allProducts.sort(() => Math.random() - 0.5)
   console.log(productsNew.slice(0, 5))
-  return productsNew.slice(0, 5) 
+  return productsNew.slice(0, 5)
 }
-                
+
 const fill = document.querySelector('.fill')
 const empties = document.querySelectorAll('.empty')
 
@@ -120,8 +98,23 @@ function dragStart() {
   setTimeout(() => (fill.class = 'invisible'), 0)
 }
 
+
+const recycleBin = document.querySelector('.recycle-it')
+const trashBin = document.querySelector('.bin-bag')
+const items = document.querySelector('.fill')
+
 function dragEnd() {
   fill.class = 'fill'
+  // if (recycleBin && items.classList.contains('recycle')) {
+//   console.log('hello')
+//   items.classList.add('invisible')
+// } else if (trashBin && items.classList.contains('no-recycle')) {
+//   console.log('it is trash')
+//   items.classList.add('invisible')
+// } else {
+//   console.log('nothing')
+// }
+
 }
 
 function dragOver(e) {
@@ -137,28 +130,30 @@ function dragLeave() {
   this.class = 'empty'
 }
 
+
 function dragDrop() {
   this.class = 'empty'
   this.append(fill)
 }
 
+let draggedItem = null
+
 window.onload = function () {
   const items = document.querySelector('.products')
   const products = randomProducts()
   for (let i = 0; i < products.length; i++) {
-    const img = document.querySelector('img')
+    const img = document.querySelector('.fill')
     img.setAttribute('style', 'position: sticky;')
     img.setAttribute('src', products[i].img)
-    //img.setAttribute('src', productImg[i])
-    img.classList.add(productBin[i])
-    img.classList.add(productLabel[i])
-    img.classList.add(productLid[i])
-    img.classList.add(productWashing[i])
+    img.classList.add(products[i].bin)
+    img.classList.add(products[i].label)
+    img.classList.add(products[i].lid)
+    img.classList.add(products[i].washing)
     items.appendChild(img)
-    
     const xy = getRandomPosition(img)
     img.style.top = xy[0] + 'px'
     img.style.left = xy[1] + 'px'
+
   }
 }
 
