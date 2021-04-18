@@ -59,7 +59,7 @@ window.onload = function() {
   const items = document.querySelector('.products')
   for (let i = 0; i < 5; i++) {
     const img = document.querySelector('img')
-    img.setAttribute('style', 'position: relative;')
+    img.setAttribute('style', 'position: sticky;')
     img.setAttribute('src', './images/recycle.png')
     items.appendChild(img)
     const xy = getRandomPosition(img)

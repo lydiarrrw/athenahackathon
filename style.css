@@ -72,6 +72,7 @@ body {
   border: 2px solid green;
   height: 220px;
   width: 220px;
+  padding:40px;
 }
 
 .wash-it {
