@@ -188,3 +188,4 @@ function getRandomPosition(element) {
   
   return [randomX, randomY]
 }
+
