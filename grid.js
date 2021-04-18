@@ -1,3 +1,14 @@
+function randomProducts() {
+  let imgArr = [];
+  for (let i = 0; i < 6; i++) {
+  const imgs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let rand = imgs[Math.floor(Math.random() * 10)];
+    imgArr.push(rand);
+  }
+  console.log(imgArr)
+}
+                
+randomProducts()
 const fill = document.querySelector('.fill')
 const empties = document.querySelectorAll('.empty')
 

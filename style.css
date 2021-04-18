@@ -23,6 +23,11 @@ body {
   justify-content: center;
 }
 
+.timer {
+  display: flex;
+  flex-direction: row;
+}
+
 .middle-section {
   flex-direction: row;
   display: flex;
