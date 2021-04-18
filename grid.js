@@ -1,9 +1,9 @@
 function randomProducts() {
-  let imgArr = [];
+  const imgArr = []
   for (let i = 0; i < 6; i++) {
-  const imgs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let rand = imgs[Math.floor(Math.random() * 10)];
-    imgArr.push(rand);
+    const imgs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const rand = imgs[Math.floor(Math.random() * 10)]
+    imgArr.push(rand)
   }
   console.log(imgArr)
 }
@@ -23,47 +23,40 @@ for (const empty of empties) {
 }
 
 function dragStart() {
-  fill.class += ' hold'
+  fill.classList.add('hold')
   setTimeout(() => (fill.class = 'invisible'), 0)
-  console.log('start')
 }
 
 function dragEnd() {
   fill.class = 'fill'
-  console.log('end')
 }
 
 function dragOver(e) {
   e.preventDefault()
-  console.log('over')
 }
 
 function dragEnter(e) {
   e.preventDefault()
-  this.class += ' hovered'
-  console.log('enter')
+  this.classList.add('hovered')
 }
 
 function dragLeave() {
   this.class = 'empty'
-  console.log('leave')
 }
 
 function dragDrop() {
   this.class = 'empty'
   this.append(fill)
-  console.log('drop')
 }
 
 window.onload = function() {
   const items = document.querySelector('.products')
   for (let i = 0; i < 5; i++) {
     const img = document.querySelector('img')
-    img.setAttribute('style', 'position: relative;')
+    img.setAttribute('style', 'position: sticky;')
     img.setAttribute('src', './images/recycle.png')
     items.appendChild(img)
     const xy = getRandomPosition(img)
-    console.log(xy)
     img.style.top = xy[0] + 'px'
     img.style.left = xy[1] + 'px'
   }
@@ -71,8 +64,8 @@ window.onload = function() {
 
 function getRandomPosition(element) {
   const productArea = document.querySelector('.products')
-  const x = productArea.offsetHeight - element.clientHeight
-  const y = productArea.offsetWidth - element.clientWidth
+  const y = productArea.offsetHeight - element.clientHeight
+  const x = productArea.offsetWidth - element.clientWidth
   const randomX = Math.floor(Math.random() * x)
   const randomY = Math.floor(Math.random() * y)
   return [randomX, randomY]

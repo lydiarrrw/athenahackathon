@@ -1,7 +1,7 @@
-const finaleDate = new Date("March 19, 2022 00:00:00").getTime();
+const finaleDate = new Date('March 19, 2022 00:00:00').getTime()
 
 const timer = () => {
-  const now = new Date().getTime();
+  const now = new Date().getTime()
   let diff = finaleDate - now
   // Showing the alert when the counter time finishes.
   if (diff < 0) {
