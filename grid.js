@@ -73,10 +73,6 @@ const allProducts = [
   }
 ]
 
-/* const productImg = allProducts.map(item => {
-  return item.img
-}) */
-
 const productBin = allProducts.map(item => {
   return item.bin
 })
@@ -93,12 +89,8 @@ const productLid = allProducts.map(item => {
   return item.lid
 })
 
-//---------------------
-
-
 function randomProducts() {
   const productsNew = allProducts.sort(() => Math.random() - 0.5)
-  console.log(productsNew.slice(0, 5))
   return productsNew.slice(0, 5) 
 }
                 
@@ -146,10 +138,9 @@ window.onload = function () {
   const items = document.querySelector('.products')
   const products = randomProducts()
   for (let i = 0; i < products.length; i++) {
-    const img = document.querySelector('img')
+    const img = document.querySelector('.fill')
     img.setAttribute('style', 'position: sticky;')
     img.setAttribute('src', products[i].img)
-    //img.setAttribute('src', productImg[i])
     img.classList.add(productBin[i])
     img.classList.add(productLabel[i])
     img.classList.add(productLid[i])
@@ -170,3 +161,24 @@ function getRandomPosition(element) {
   const randomY = Math.floor(Math.random() * y)
   return [randomX, randomY]
 }
+
+//  * Modal rules
+document.querySelectorAll('.close').forEach(item => {
+  item.addEventListener('click', event => {
+    event.target.parentNode.style.display = 'none'
+  })
+})
+document.querySelector('#info').addEventListener('click', event => {
+  console.log('in your click')
+  document.querySelectorAll('.modal').forEach(item => {
+    item.classList.add('show-modal')
+  })
+})
+document.querySelectorAll('.skip').forEach(item => {
+  item.addEventListener('click', event => {
+    console.log('in your skip click')
+    document.querySelectorAll('.modal').forEach(item => {
+      item.classList.remove('show-modal')
+    })
+  })
+})
