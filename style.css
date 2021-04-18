@@ -101,11 +101,11 @@ body {
 }
 
 .hold {
-  border: 4px solid blue;
+  border: 3px solid blue;
 }
 
 .hovered {
-  border: 5px solid green;
+  border: 3px solid green;
   border-style: dashed;
 }
 

@@ -1,6 +1,6 @@
-var timeLeft = 30
-var elem = document.getElementById('timer')
-var timerId = setInterval(countdown, 1000)
+let timeLeft = 30
+const elem = document.getElementById('timer')
+const timerId = setInterval(countdown, 1000)
 
 function countdown() {
   if (timeLeft === -1) {
