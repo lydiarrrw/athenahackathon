@@ -166,3 +166,23 @@ function getRandomPosition(element) {
   return [randomX, randomY]
 }
 
+//  * Modal rules
+document.querySelectorAll('.close').forEach(item => {
+  item.addEventListener('click', event => {
+    event.target.parentNode.style.display = 'none'
+  })
+})
+document.querySelector('#info').addEventListener('click', event => {
+  console.log('in your click')
+  document.querySelectorAll('.modal').forEach(item => {
+    item.classList.add('show-modal')
+  })
+})
+document.querySelectorAll('.skip').forEach(item => {
+  item.addEventListener('click', event => {
+    console.log('in your skip click')
+    document.querySelectorAll('.modal').forEach(item => {
+      item.classList.remove('show-modal')
+    })
+  })
+})

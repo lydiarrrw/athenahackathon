@@ -4,24 +4,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recycle</title>
+  <title>Sort Stuff</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- <h1>Recycleman</h1>
-    <div class='info'>
-      <h3>How to play:</h3>
-      <ul>
-        <li>Select a category and click start button to start the game</li>
-        <li>Use arrow keys to move around the grid</li>
-        <li>Collect all recycible items</li>
-        <li>Rinse packaging for extra lives</li>
-        <li>Try to escape a bin bag</li>
-      </ul>
-    </div> -->
-
-  <h1>Recycle</h1>
+  <h1>Sort Stuff</h1>
+  <div class="button-container">
+    <button id="play">Play the game</button>
+    <button id="info">Read the game and recycling rules</button>
+  </div>
+  <div class="modal-container">
+    <div class="modal" id="wine">
+      <h4>Wine bottle</h4>
+      <span class="close">&times;</span>
+      <img src="./images/wine.png" />
+      <p>Make sure you rinse our your bottles before putting them in with glass recycling. If your council collects all recycling together, make sure the bottle is dry before storing it with paper and cardboard waste.</p>
+      <button class="skip">Skip information</button>
+    </div>
+    <div class="modal" id="pizza">
+      <h4>Cardboard pizza box</h4>
+      <span class="close">&times;</span>
+      <img src="./images/pizza.png" />
+      <p>Your pizza box should be free of food waste before putting it into the recycling, otherwise it may contaminate everything else in there!</p>
+      <button class="skip">Skip information</button>
+    </div>
+    <div class="modal" id="spray">
+      <h4>Spray cleaner</h4>
+      <span class="close">&times;</span>
+      <img src="./images/water-spray.png" />
+      <p>Check out the label on your spray cleaner to see what type of plastic it is made put of. Inside the recycling symbol on the label, look for the number to see what type of plastic it is. Some places do not recycle any plastics other than types 1, 2 and 5. Also the spray top may not be recyclable. Check out your council\'s website to beforehand.</p>
+      <button class="skip">Skip information</button>
+    </div>
+    <div class="modal" id="shampoo">
+      <h4>Shampoo bottle</h4>
+      <span class="close">&times;</span>
+      <img src="./images/shampoo.png" />
+      <p>Besides making sure you bottle is free of any residual product, make sure to remove the cap or pump. These are often not recyclable and must be put into general waste.</p>
+      <button class="skip">Skip information</button>
+    </div>
+    <div class="modal" id="post-it">
+      <h4>Post it notes</h4>
+      <span class="close">&times;</span>
+      <img src="./images/notes.png" />
+      <p>You may think all paper items are recyclable, but there are many exceptions to the rule. Firstly, the adhesive on the post it note is not recyclable and could contaminate other paper waste. Additionally, post- it notes are often too small to be picked up by scanners and therefore can not be readily recycled. Put these in general waste.</p>
+      <button class="skip">Skip information</button>
+    </div>
+    <div class="modal" id="water">
+      <h4>Plastic water bottle</h4>
+      <span class="close">&times;</span>
+      <img src="./images/water.png" />
+      <p>Separation is key to remember here. While water bottles themselves are easily recyclable, the caps are too small to be picked up by scanners and must go into general waste.</p>
+      <button class="skip">Skip information</button>
+    </div>
+    <div class="modal" id="meal">
+      <h4>Meal Deal Container</h4>
+      <span class="close">&times;</span>
+      <img src="./images/meal.png" />
+      <p>When you finish your lunch, make sure no food waste is left. Then separate the clear film from the cardboard packaging. The clear film goes into general waste while the cardboard may be recycled.</p>
+      <button class="skip">Skip information</button>
+    </div>
+    <div class="modal" id="cup">
+      <h4>Coffee cup</h4>
+      <span class="close">&times;</span>
+      <img src="./images/coffee.png" />
+      <p>We wish we could recycle our takeaway coffee cups but sadly, due to food contamination, they must go into general waste. You can sometimes recycle the lids however.</p>
+      <button class="skip">Skip information</button>
+    </div>
+    <div class="modal" id="instructions">
+      <h4>Instructions</h4>
+      <span class="close">&times;</span>
+      <img src="./images/recycle.png" />
+      <p>We'll show you some information in the next few pop-ups and then test your knowledge! Drag the items to sort and dispose of them correctly. If you think they need to be washed or have something removed, drag and hover over those boxes, and when you think the item is ready, drag it to one of the bins to dispose of it.</p>
+      <button class="skip">Skip information</button>
+    </div>
+  </div>
 
   <div class="game-space">
     <section class="top-section">
@@ -37,8 +94,8 @@
         <img class="fill" draggable="true" src="" alt="" />
       </div>
       <div class="bottom-section">
-        <div class="empty lid-off">Remove lid</div>
-        <div class="empty label-off">Remove label</div>
+        <div class="empty lid-off"></div>
+        <div class="empty label-off"></div>
       </div>
     </section>
     <section class="end-section">
@@ -48,38 +105,8 @@
 
   <div>
     <h4 id="timer"></h4>
- 
   </div>
 
-
-    <!-- <div style="background: rgb(204, 24, 24);" class="alert">
-        <h1 style="padding: 50px 80px;color: white;">We are sorry, Event ended ! </h1>
-    </div> -->
- 
-
-    <!-- <h3>Fun facts:</h3>
-    <ul>
-      <li>It takes up to 500 years for plastic to fully decompose.</li>
-      <li>The UK has more than 50,000 bottle banks, and each bank is capable of holding 3,000 bottles, yet 5 out of every 6 glass bottles are thrown away.</li>
-      <li>The average UK household throws away 20% of all food purchased.</li>
-      <li>We use 25% of the worlds fresh water supply to grow food that we will send to the landfill.</li>
-      <li>We throw away 1.4 million untouched bananas every day.</li>
-      <li>The average person throws away 74kg of food waste each year, the weight of over 1000 banana skins.</li>
-      <li>More than 28 billion glass bottles and jars end up in landfills every year, which is the equivalent to the Empire State Building filling up every 3 weeks.</li>
-      <li>You could drive a car 11 metres on the oil it takes to make 1 plastic bag.</li>
-      <li>Plastic consumption grows by around 4% each year in Western Europe. That might not sound a lot, but it means that within 20 years we will have doubled our current plastic use.</li>
-      <li>It is estimated that around 600 million tonnes of products and materials enter the UK economy each year… only 115 million tonnes of this gets recycled (source: WRAP)</li>
-      <li>The aluminium drinks can is the world’s most recycled packaging container – worldwide over 50% of aluminium cans are recycled.</li>
-      <li>Recycling one glass bottle or jar saves enough energy to power your computer for 20 minutes.</li>
-      <li>For every tonne of recycled newspaper, we save 17 trees.</li>
-      <li>It can take just seven days for old magazines and newspapers to be recycled into new ones.</li>
-      <li>Each UK household produces over 1 tonne of waste per year. This is the weight of a small car.</li>
-      <li>In less than 2 hours the UK produces enough waste to fill the Albert Hall.</li>
-      <li>Every year, the average dustbin contains enough unrealised energy for 500 baths, 3500 showers or 5,000 hours of television.</li>
-      <li>On average, every person in the UK throws away their own body weight in waste every seven weeks.</li>
-      <li>Up to 60% of the waste that ends up in the bin could be recycled.</li>
-    </ul> -->
-  <!-- <script src="game-logic.js"></script> -->
   <script src="timer.js"></script>
   <script src="grid.js"></script>
 </body>
